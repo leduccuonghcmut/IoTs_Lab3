@@ -42,17 +42,30 @@ enum TinyMLState
     TINYML_ANOMALY
 };
 
+enum RemoteCommandType
+{
+    REMOTE_CMD_NONE = 0,
+    REMOTE_CMD_RELAY1,
+    REMOTE_CMD_RELAY2,
+    REMOTE_CMD_DOOR,
+    REMOTE_CMD_FAN_POWER,
+    REMOTE_CMD_FAN_SPEED,
+    REMOTE_CMD_RGB
+};
+
 typedef struct
 {
     QueueHandle_t sensorQueue;
     SemaphoreHandle_t ledTempSemaphore;
     SemaphoreHandle_t neoHumiSemaphore;
+    SemaphoreHandle_t rgbSemaphore;
     SemaphoreHandle_t semLCDNormal;
     SemaphoreHandle_t semLCDWarning;
     SemaphoreHandle_t semLCDCritical;
     SemaphoreHandle_t internetSemaphore;
     SemaphoreHandle_t stateMutex;
     SemaphoreHandle_t configMutex;
+    SemaphoreHandle_t serialMutex;
 
     TempLevel tempLevel;
     HumiLevel humiLevel;
@@ -61,16 +74,51 @@ typedef struct
 
     bool wifiConnected;
     bool tinymlReady;
+    bool mnistReady;
+    bool relay1On;
+    bool relay2On;
+    bool doorOpen;
+    bool fanOn;
+    bool rgbLedOn;
+    bool remoteOnline;
+    bool espNowReady;
+    bool espNowPeerConfigured;
+    bool remoteDoorOpen;
+    bool remoteFanOn;
+    bool remoteRgbOn;
 
     float temperature;
     float humidity;
     float tinymlScore;
+    float mnistConfidence;
+    float remoteTemperature;
+    float remoteHumidity;
+    int mnistDigit;
+    uint8_t rgbRed;
+    uint8_t rgbGreen;
+    uint8_t rgbBlue;
+    uint8_t fanSpeed;
+    uint8_t remoteFanSpeed;
+    uint8_t remoteRgbRed;
+    uint8_t remoteRgbGreen;
+    uint8_t remoteRgbBlue;
+    uint32_t remoteLastSeenMs;
+    uint32_t espNowPacketsRx;
+    uint32_t espNowPacketsTx;
 
     String wifiSsid;
     String wifiPass;
     String coreIotToken;
     String coreIotServer;
     String coreIotPort;
+    String cameraHost;
+    String mnistStatus;
+    String rgbHexText;
+    String peerMac;
+    String localMac;
+    String espNowStatus;
+    String remoteBoardName;
+    String remoteRgbHexText;
 
     String apSsid;
     String apPassword;

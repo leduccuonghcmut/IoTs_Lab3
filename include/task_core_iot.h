@@ -10,4 +10,6 @@
 void CORE_IOT_sendata(String mode, String feed, String data);
 bool CORE_IOT_reconnect();
 void coreiot_thingsboard_task(void *pvParameters);
+void coreiot_task(void *pvParameters);
+
 #endif

@@ -79,8 +79,8 @@ void setup()
   ctx->remoteRgbHexText = "#000000";
   ctx->apSsid = "ESP32 cua bao!!!";
   ctx->apPassword = "12345678";
-  ctx->wifiSsid = "ACLAB";
-  ctx->wifiPass = "ACLAB2023";
+  ctx->wifiSsid = "bao";
+  ctx->wifiPass = "12345678";
 
   check_info_File(ctx, false);
 
@@ -90,7 +90,8 @@ void setup()
   xTaskCreate(espnow_link_task, "ESP-NOW Link", 8192, ctx, 2, NULL);
   xTaskCreate(tiny_ml_task, "Tiny ML Task", 8192, ctx, 2, NULL);
   xTaskCreate(camera_mnist_task, "Camera MNIST Task", 16384, ctx, 2, NULL);
-  xTaskCreate(coreiot_thingsboard_task, "CoreIOT Task", 8192, ctx, 2, NULL);
+  //xTaskCreate(coreiot_thingsboard_task, "CoreIOT Task", 8192, ctx, 2, NULL);
+  xTaskCreate(coreiot_task, "CoreIOT Task", 8192, ctx, 2, NULL); // đẩy về mqtt local pc
   xTaskCreate(led_blinky, "Task LED Blink", 2048, ctx, 2, NULL);
   xTaskCreate(neo_blinky, "Task NEO Blink", 2048, ctx, 2, NULL);
   xTaskCreate(NeoPixel, "External NeoPixel", 4096, ctx, 2, NULL);
